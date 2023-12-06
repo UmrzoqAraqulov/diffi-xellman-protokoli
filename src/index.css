@@ -6,38 +6,43 @@
   text-decoration: none;
 }
 
+h1 {
+  text-align: center;
+  font-size: 40px;
+}
+
 .protokol {
   margin: 0 auto;
   padding-top: 30px;
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 20px;
   width: 600px;
 }
 
-.inputInformations{
+.inputInformations {
   padding: 20px;
   box-shadow: 1px 1px 10px gray;
 }
 
-.inputInformations h2{
+.inputInformations h2 {
   text-align: center;
   font-size: 30px;
   padding: 10px 0px;
 }
 
-.element{
+.element {
   width: 100%;
   margin: 10px 0px;
-} 
+}
 
-label{
+label {
   display: inline-block;
   width: 60px;
   font-size: 20px;
 }
 
-.element input{
+.element input {
   padding: 4px;
   border: 1px solid gray;
   outline: none;
@@ -45,11 +50,11 @@ label{
   width: calc(100% - 100px);
 }
 
-.element input:focus{
+.element input:focus {
   box-shadow: 0px 0px 5px 1px rgba(0, 140, 255, 0.551);
 }
 
-.inputInformations button{
+.inputInformations button {
   padding: 10px 15px;
   border: none;
   border-radius: 3px;
@@ -59,17 +64,21 @@ label{
   cursor: pointer;
 }
 
-.inputInformations button:hover{
+.inputInformations button:hover {
   box-shadow: 1px 1px 6px rgb(0, 157, 255);
 }
 
-.result{
+.tomon {
+  padding: 10px;
+  box-shadow: 1px 1px 10px gray;
+  width: 50%;
+}
+
+.result {
   padding: 20px;
   box-shadow: 1px 1px 10px gray;
 }
 
-.result h2{
+.result h2 {
   text-align: center;
-  padding-bottom: 20px;
 }
-

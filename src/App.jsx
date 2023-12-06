@@ -1,33 +1,43 @@
 import { useState } from "react";
 
-const randomNumber = () => {
-  return Math.ceil(Math.random() * 100);
+const randomNumber = (maxValue) => {
+  return Math.ceil(Math.random() * (maxValue - 1) + 1);
+};
+
+const tubSon = (number) => {
+  for (let i = 2; i ** 2 <= number; i++) {
+    if (number % i === 0) return false;
+  }
+  return true;
 };
 
 const App = () => {
   const [inputValues, setInputValues] = useState({
-    pValue: null,
-    zValue: null,
-    aValue: null,
+    pValue: undefined,
+    aValue: undefined,
   });
   const [resultValue, setResultValue] = useState({
-    xValue: null,
-    kValue: null,
+    xValue: undefined,
+    yValue: undefined,
+    kValue: undefined,
+    AValue: undefined,
+    BValue: undefined,
   });
 
-  const { xValue, kValue } = resultValue;
-  const { pValue, zValue, aValue } = inputValues;
-
+  const { xValue, yValue, kValue, AValue, BValue } = resultValue;
+  const { pValue, aValue } = inputValues;
   const submit = (e) => {
     e.preventDefault();
-    let x = randomNumber();
-    let y = randomNumber();
-    y = y === x ? randomNumber() : y;
-    let A = aValue ** y % pValue;
-    let k = A ** x % pValue;
-    setResultValue({ xValue: x, kValue: k });
-    console.log(k);
-    console.log(x);
+    if (tubSon(pValue) && pValue > aValue) {
+      let x = randomNumber(pValue);
+      let y = randomNumber(pValue);
+      let A = aValue ** y % pValue;
+      let B = aValue ** x % pValue;
+      let k = A ** x % pValue;
+      setResultValue({ xValue: x, yValue: y, kValue: k, AValue: A, BValue: B });
+    } else {
+      alert("kiritgan ma'lumotlariz noto'g'ri boshqatdan o'rinib ko'ring!");
+    }
   };
 
   const handleChange = (e) => {
@@ -37,8 +47,9 @@ const App = () => {
 
   return (
     <div className="protokol">
+      <h1>Diffi Xellman Protokoli</h1>
       <div className="inputInformations">
-        <form>
+        <form onSubmit={submit}>
           <h2>Ikki tomon kelishib olgan ma'lumotlar</h2>
           <div className="element">
             <label htmlFor="p">p = </label>
@@ -52,27 +63,10 @@ const App = () => {
               required={true}
             />
           </div>
-          <div className="element" style={{ textAlign: "center" }}>
-            Z<sup>*</sup>
-            <sub>p</sub> value
-            {"{1:" + (pValue > 1 ? pValue : " p") + "}"}
-          </div>
-          <div className="element">
-            <label htmlFor="z">
-              Z<sup>*</sup>
-              <sub>p</sub> =
-            </label>
-            <input
-              id="z"
-              disabled={pValue > 1 ? false : true}
-              type="number"
-              placeholder="131"
-              value={zValue}
-              onChange={handleChange}
-              name="Value"
-              required
-            />
-          </div>
+          <p>
+            α ning qiymati {"{1:" + (pValue ? pValue : " p ni kiriting") + "}"} su
+            oraliqda bo'lishi kerak
+          </p>
           <div className="element">
             <label htmlFor="a">α = </label>
             <input
@@ -85,15 +79,28 @@ const App = () => {
               required
             />
           </div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <button type="submit">hisoblash</button>
+          </div>
         </form>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <button onClick={submit}>hisoblash</button>
+      </div>
+      <div style={{ display: "flex", gap: "20px" }}>
+        <div className="tomon">
+          <h2 style={{ textAlign: "center" }}>Birinchi tomon</h2>
+          <h3>A = {AValue}</h3>
+          <h3>x = {xValue}</h3>
+          <h3>k = {kValue}</h3>
+        </div>
+        <div className="tomon">
+          <h2 style={{ textAlign: "center" }}>Ikkinchi tomon</h2>
+          <h3>B = {BValue}</h3>
+          <h3>y = {yValue}</h3>
+          <h3>k = {kValue}</h3>
         </div>
       </div>
       <div className="result">
         <h2>Natija</h2>
         <div>
-          <h3 style={{ paddingBottom: "10px" }}>x = {xValue}</h3>
           <h3>k = {kValue}</h3>
         </div>
       </div>
